@@ -1,6 +1,13 @@
 """
-The Events module:
-Support for the different events a Postal Server could provide (usually via webhooks)
+The Postal Events module:
+
+Postal supports sending webhooks over HTTP when various events occur during the
+lifecycle of a message. This module adds a pythonic support for the different events
+a Postal Server could provide. 
+
+The complete documentation about the different types and payloads provided by a postal
+server can be found at: https://docs.postalserver.io/developer/webhooks
+
 """
 
 from dataclasses import dataclass, field
@@ -9,7 +16,7 @@ from pyostal.message import Message
 from abc import abstractmethod
 
 class EventInterface():
-    # Message Events
+    # Message Events Types
     SENT = 'Sent'
     DELAYED = 'Delayed'
     DELIVERY_FAILED = 'DeliveryFailed'
@@ -17,7 +24,7 @@ class EventInterface():
     BOUNCED = 'Bounced'
     LINK_CLICKED = 'LinkClicked'
 
-    #Server Events
+    # Server Events Types
     SEND_LIMIT_EXCEEDED = 'SendLimitExceeded'
     SEND_LIMIT_APPROACHING = 'SendLimitApproaching'
     DOMAIN_DNS_ERROR = 'DomainDNSError'
@@ -26,26 +33,18 @@ class EventInterface():
     def get_type(self) -> str: raise NotImplementedError
 
 @dataclass
-class HasMessageMixin:
-    message: Message
-
-    def __post_init__(self):
-        self.message = Message.from_payload(self.message)
-
-@dataclass
-class HasStatusMixin(HasMessageMixin):
+class HasStatusMixin:
     status: str
     details: str
     output: str
     time: float
     sent_with_ssl: bool
     timestamp: float
+    message: Message = field(default_factory=Message.from_payload)
 
-@dataclass
 class MessageDeliveryFailed(HasStatusMixin, EventInterface):
     def get_type(self) -> str: return EventInterface.DELIVERY_FAILED
 
-@dataclass
 class MessageHeld(HasStatusMixin, EventInterface):
     def get_type(self) -> str: return EventInterface.HELD
 
@@ -57,22 +56,18 @@ class MessageDelayed(HasStatusMixin, EventInterface):
 
 @dataclass
 class MessageBounced(EventInterface):        
-    bounce: Message
-    message: Message = field(init=False)
-    original_message: Message
-
-    def __post_init__(self):
-        self.message = Message.from_payload(self.original_message)
-        self.bounce = Message.from_payload(self.bounce)
+    bounce: Message = field(default_factory=Message.from_payload)
+    message: Message = field(default_factory=Message.from_payload)
     
     def get_type(self) -> str: return EventInterface.BOUNCED
 
 @dataclass
-class MessageLinkClicked(HasMessageMixin, EventInterface):
-    url: str
-    token: str
-    ip_address: str
-    user_agent: str
+class MessageLinkClicked(EventInterface):
+    url: str = None
+    token: str = None
+    ip_address: str = None
+    user_agent: str = None
+    message: Message = field(default_factory=Message.from_payload)
     
     def get_type(self) -> str: return EventInterface.LINK_CLICKED
 
@@ -80,8 +75,7 @@ class MessageLinkClicked(HasMessageMixin, EventInterface):
 class HasServerMixin:
     server: dict
 
-    def get_server_id(self):
-        return self.server['uuid']
+    def get_server_id(self): return self.server['uuid']
 
 @dataclass
 class SendLimitExceeded(HasServerMixin, EventInterface):
