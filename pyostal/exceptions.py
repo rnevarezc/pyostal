@@ -1,4 +1,3 @@
-
 class PostalException(RuntimeError):
     pass
 
@@ -8,3 +7,5 @@ class InvalidRequestException(PostalException):
 class InvalidEventPayloadException(PostalException):
     pass
 
+class InvalidEmailException(PostalException):
+    pass

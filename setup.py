@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pyostal',
-    version='0.6',
+    version='0.8',
     description='A Python lightweight Postal API Client',
     keywords='postal postalserver email http client events',
     url='http://github.com/rnevarezc/pyostal',
@@ -21,7 +21,7 @@ setup(
         'Topic :: Software Development :: Libraries',
     ],
     install_requires=[
-        'requests',
+        'requests', 'pydantic'
     ],
     zip_safe=False
 )
