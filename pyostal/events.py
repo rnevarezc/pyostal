@@ -1,12 +1,12 @@
 """
 The Postal Events module:
 
-Postal supports sending webhooks over HTTP when various events occur during the
-lifecycle of a message. This module adds a pythonic support for the different events
-a Postal Server could provide. 
+Postal supports sending webhooks over HTTP when various events occur during
+the lifecycle of a message. This module adds a pythonic support for the
+different events a Postal Server could provide. 
 
-The complete documentation about the different types and payloads provided by a postal
-server can be found at: https://docs.postalserver.io/developer/webhooks
+The complete documentation about the different types and payloads provided by
+a postal server can be found at: https://docs.postalserver.io/developer/webhooks
 
 """
 

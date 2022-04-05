@@ -10,12 +10,15 @@ class Client:
     This is a very simple translation to Python from my Original PHP Project
     located at https://github.com/rnevarezc/postal
 
-    It uses the great psf/requests library to handle all the http weight-lifting.
+    It uses the great psf/requests library to handle the http weight-lifting.
     
     Attributes:
-        host:       The Postal Host that will be used.
-        apikey:     The provided apikey
-        headers:    Any additional headers to be passed to the api.
+    host: str
+        The Postal Host that will be used.
+    apikey: str
+        The provided apikey
+    headers: dict
+        Any additional headers to be passed to the api.
     """
 
     def __init__(self, host: str, apikey: str, headers = {}) -> None:

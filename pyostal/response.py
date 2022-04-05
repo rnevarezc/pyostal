@@ -8,31 +8,42 @@ class Response:
 
     This is a very simple translation to Python from my Original PHP Project
     located at https://github.com/rnevarezc/postal
+    
      
     Attributes:
-        data:   The data attribute contains the result of your request. 
-                Depending on the status, this will either contain the data
-                requested or details of any error which has occurred.
+    ----------
+    data: dict
+        The data attribute contains the result of your request. 
+        Depending on the status, this will either contain the data
+        requested or details of any error which has occurred.
 
-        flags:  Additional flags provided by the API
+    flags: list
+        The flags attribute contains a hash of additional attributes
+        which are relevant to your request. For example, if you receive an
+        array of data it may be paginated  and this pagination data will
+        be returned in this hash.
+
+    status: str
+        The status attribute will give you can indication about whether
+        the request was performed successfully or whether an error 
+        occurred. Values which may be returned are shown below:
     
-        status: The status attribute will give you can indication about whether
-                the request was performed successfully or whether an error 
-                occurred. Values which may be returned are shown below:
+        success - this means that the request completed successfully and
+        returned what was expected.
         
-                success - this means that the request completed successfully and
-                returned what was expected.
-                
-                parameter-error - the parameters provided for the action are not
-                valid  and should be revised.
-                
-                error - an error occurred that didn't fit into the above categories. 
-                This will be accompanied with an error code, a descriptive message
-                and further attributes which may be useful. 
+        parameter-error - the parameters provided for the action are not
+        valid  and should be revised.
+        
+        error - an error occurred that didn't fit into the above categories. 
+        This will be accompanied with an error code, a descriptive message
+        and further attributes which may be useful. 
 
-        time:   The timestamp of the response
+    time: float
+        The time attribute shows how long the request took to complete
+        on the server side.
 
-        details:Details provided for some error payloads.
+    details: dict
+        Details provided for some error payloads.
     """
     status: str
     time: float = None

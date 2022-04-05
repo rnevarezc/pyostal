@@ -31,9 +31,13 @@ class Email(HasMessagesMixin):
 
     def __post_init__(self):
         if not self.to and not self.cc and not self.bcc:
-            raise InvalidEmailException('Email must have at least one recipient')
+            raise InvalidEmailException(
+                'Email must have at least one recipient'
+            )
         if not self.plain_body and not self.html_body:
-            raise InvalidEmailException('Email must have a plain_body or html_body')
+            raise InvalidEmailException(
+                'Email must have a plain_body or html_body'
+            )
         return
 
     def add_attachment(self, filename: str, content_type: str, data: str):

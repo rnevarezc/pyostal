@@ -62,7 +62,7 @@ from pyostal.emails import Email
 
 email = Email({
     'to': ['mail@example.com'],
-    'bcc': ['test1@example.com', 'test2@example.com],
+    'bcc': ['test1@example.com', 'test2@example.com'],
     'from_address': 'othermail@example.com',
     'reply_to': 'reply-to@example.com',
     'subject': 'This is a subject',

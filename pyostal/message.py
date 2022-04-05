@@ -7,18 +7,31 @@ class Message:
     A Data Structure Class to handle the Postal Message payload.
 
     Attributes:
-        id:         The integer ID of the message
-        token:      The unique token of the message
-        direction:  Direction of the message: Incoming | Outgoing
-        message_id: Unique ID of the associated message
-        to:         The Recipient email address 
-        from_:      The sender email address 
-        timestamp:  The message timestamp
-        spam_status:The email spam status: Spam | NotSpam
-        tag:        A tag assigned to the message.
-        status:     Optional data of the message current status
-        details:    Optional details of the message.
+    ----------
+    id: int
+        The integer ID of the message
+    token: str
+        The unique token of the message
+    direction: str
+        Direction of the message: Incoming | Outgoing
+    message_id: str
+        Unique ID of the associated message
+    to: str
+        The Recipient email address 
+    from_: str
+        The sender email address 
+    timestamp: float 
+        The message timestamp
+    spam_status: str
+        The email spam status: Spam | NotSpam
+    tag: str, optional
+        A tag assigned to the message.
+    status: dict, optional
+        Optional data of the message current status
+    details: dict, optional
+        Optional details of the message.
     """
+
     id: int
     token: str
     direction: str
